@@ -2,6 +2,7 @@ import { Login } from "../components/login"
 import { useAuthState } from "react-firebase-hooks/auth"
 import { auth } from "../config/firebase"
 import { signOut } from "firebase/auth"
+import axios from "axios"
 
 export const Profile = () => {
     const [user] = useAuthState(auth)
@@ -32,7 +33,7 @@ export const Profile = () => {
                             <div>
                                 <p><strong>Name: </strong>{user?.displayName}</p>
                                 <p><strong>Email: </strong>{user?.email}</p>
-                                <p><strong>User ID: </strong>{user?.uid}</p>
+                                <p><strong>User ID: </strong>{axios.get(`http://localhost:8000/api/footprint/${user?.uid}`)}</p>
                             </div>
                         </div>
                     </div>

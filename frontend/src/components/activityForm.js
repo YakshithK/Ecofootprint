@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import axios from 'axios';
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../config/firebase";
 
 export function Activity() {
+  
+  const [user] = useAuthState(auth)
+
   const [formData, setFormData] = useState({
     transport: { name: '', amount: 0 },
     energy: { name: '', amount: 0 },
@@ -26,12 +31,14 @@ export function Activity() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
     try {
       const response = await axios.post('http://localhost:8000/api/footprint/calc', formData);
       const footprint = parseFloat(response.data.footprint)
+
+      const req = {uid: user?.uid, footprint: footprint}
+      const res2 = await axios.put('http://localhost:8000/api/footprint', req)
+
       setFootprint(footprint)
-      console.log('Calculated Footprint:', footprint);
     } catch (error) {
       console.log('There was an error submitting the data!', error);
     }

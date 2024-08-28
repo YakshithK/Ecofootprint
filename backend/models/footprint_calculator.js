@@ -6,7 +6,6 @@ const factors = {
 }
 
 export function calculate(inputs) {
-    console.log(inputs)
     const transpoMode = inputs.transport.name
     const transport = inputs.transport.amount * factors.transportation[transpoMode]
     const energyMode = inputs.energy.name

@@ -7,7 +7,7 @@ import activities from './routes/activities.js'
 import goals from './routes/goals.js'
 import recs from './routes/recs.js'
 import footprints from './routes/footprints.js'
-import register from './routes/login.js'
+import accounts from './routes/accounts.js'
 const port = process.env.PORT || 5000;
 
 const __filename = fileURLToPath(import.meta.url)
@@ -30,6 +30,6 @@ app.use('/api/recs/', recs)
 
 app.use('/api/footprint/', footprints)
 
-app.use('/api/users/', register)
+app.use('/api/users/', accounts)
 
 app.listen(port, () => console.log(`Server is running on port ${port}`))

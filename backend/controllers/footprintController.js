@@ -27,7 +27,7 @@ export const updateFootprint = async (req, res, next) => {
 }
 
 export const getFootprint = async (req, res, next) => {
-    const {uid} = req.body
+    const uid = req.params.uid
     try {
         const result = await pool.query(
             'SELECT latest_footprint FROM users WHERE uid = $1', [uid]

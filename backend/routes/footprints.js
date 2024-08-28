@@ -4,7 +4,7 @@ const router = express.Router()
 
 router.post('/calc', calcFootprint)
 
-router.post('/', getFootprint)
+router.get('/:uid', getFootprint)
 
 router.put('/', updateFootprint)
 

@@ -1,4 +1,14 @@
-.App {
+@font-face {
+  font-family: 'Karantina';
+  src: url('./assets/fonts/Karantina-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Viga';
+  src: url('./assets/fonts/Viga-Regular.ttf');
+}
+
+App {
   text-align: center;
 }
 

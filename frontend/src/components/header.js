@@ -2,7 +2,7 @@ import { Navbar } from "./navbar"
 
 export const Header = () => {
     return(
-        <header style={{ height: 40, backgroundColor: 'green', display: 'wrap', justifyContent: 'flex-end'}}>
+        <header style={{ height: 65, backgroundColor: 'green', display: 'flex',justifyContent: 'center'}}>
             <Navbar />
         </header>
     )

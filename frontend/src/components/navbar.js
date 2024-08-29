@@ -6,7 +6,7 @@ import { signOut } from "firebase/auth"
 const linkStyle = {
     fontFamily: 'Poppins',
     fontWeight: 1000,
-    fontSize: '120%',
+    fontSize: 25,
     paddingRight: 40,
     textDecoration: 'none',
     color: 'white',
@@ -22,7 +22,7 @@ export const Navbar = () => {
     }
 
     return (
-        <nav style={{ height:65, paddingTop: 15, backgroundColor: 'green'}}>
+        <nav style={{ height:65, backgroundColor: 'green', alignContent: 'center'}}>
             <Link to='/' style={linkStyle}>Home </ Link>
             <Link to='/dashboard' style={linkStyle}>Dashboard </ Link>
             <Link to='/activities' style={linkStyle}>Activities </ Link>

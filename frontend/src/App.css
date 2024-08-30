@@ -46,3 +46,13 @@ App {
     transform: rotate(360deg);
   }
 }
+
+.welcome{
+  -webkit-text-stroke-width: 2px;
+  text-shadow: -1px -1px 0 #000;
+}
+
+.btn1{
+  -webkit-text-stroke-width: 2px;
+  box-shadow: inset #000;
+}

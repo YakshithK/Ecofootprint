@@ -17,33 +17,38 @@ export const Home = () => {
       flexDirection: 'column',
     },
     title: {
-      fontSize: '125px',
+      fontSize: 150,
       fontWeight: 1,
       color: '#514E20',
-      marginBottom: '20px',
-      fontFamily: 'Karantina', // Replace with your custom font
-      textShadow: '-2px -2px 0 white, 2px -2px 0 white, -2px 2px 0 white, 2px 2px 0 white',
+      marginBottom: 50,
+      fontFamily: 'Karantina',
+      textShadow: '-5px -5px 0 #000',
+      WebKitTextStrokeWidth: 2,
+      WebkitTextStrokeColor: 'white',
+      textShadow: '-1px -1px 0 #000'
     },
     button: {
-      padding: '15px 30px',
-      fontSize: '20px',
-      fontWeight: 'bold',
-      color: '#333',
-      backgroundColor: '#c1b100',
-      border: 'none',
-      borderRadius: '5px',
+      WebkitTextStrokeColor: '#312A21',
+      fontFamily: 'Viga',
+      marginBottom: 160,
+      padding: '10px 35px',
+      fontWeight: '3px',
+      fontSize: 35,
+      color: '#fff',
+      backgroundColor: '#908A27',
+      borderRadius: 30,
       cursor: 'pointer',
       margin: '10px',
-      boxShadow: '2px 2px 8px rgba(0, 0, 0, 0.2)',
+      border: '4px solid black'
     },
   };
 
   return (
     <div style={styles.container}>
-      <h1 style={styles.title}>Welcome to EcoFootprint</h1>
+      <h1 className="welcome" style={styles.title}>Welcome to EcoFootprint</h1>
       <div>
-        <button style={styles.button}>Get Started</button>
-        <button style={styles.button}>Go to Dashboard</button>
+        <button className="btn1" style={styles.button}>Get Started</button>
+        <button className="btn1" style={styles.button}>Go to Dashboard</button>
       </div>
     </div>
   );

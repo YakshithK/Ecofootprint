@@ -1,5 +1,7 @@
 # EcoFootprint
 
+![image](https://github.com/user-attachments/assets/347be299-be90-4e1f-9839-abdd8ce06e98)
+
 EcoFootprint is a web application designed to help users calculate their carbon footprint based on various activities, such as transportation, energy usage, food consumption, and waste production. The app provides insights into the environmental impact of these activities, promoting sustainable living choices.
 
 ## Features

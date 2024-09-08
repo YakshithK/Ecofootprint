@@ -1,8 +1,7 @@
 import React from 'react';
 import { Button } from '../components/button';
 import { Container } from '../components/container';
-import '../App.css'
-import backgroundImage from '../assets/images/bg.jpg'; // Update the path accordingly
+import '../App.css';
 
 export const Home = () => {
   const title = {
@@ -15,10 +14,14 @@ export const Home = () => {
       WebKitTextStrokeWidth: 2,
       WebkitTextStrokeColor: 'white',
       textShadow: '-1px -1px 0 #000'
-  }
+  };
+
+  const containerStyle = {
+    height: '100vh', // Example: set the height to 100vh
+  };
 
   return (
-    <Container>
+    <Container style={containerStyle}>
       <h1 className="welcome" style={title}>Welcome to EcoFootprint</h1>
       <div>
         <Button>Get Started</Button>

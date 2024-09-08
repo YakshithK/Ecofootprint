@@ -1,39 +1,42 @@
-import React from "react"
-import PropTypes from 'prop-types'
+import React from "react";
+import PropTypes from 'prop-types';
 import backgroundImage from '../assets/images/bg.jpg'; // Update the path accordingly
-
-const styles = {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100vh',
-    backgroundImage: `url(${backgroundImage})`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    color: '#fff',
-    textAlign: 'center',
-    flexDirection: 'column',
-}
 
 const Container = ({
     children,
-    className="",
+    className = "",
+    style = {},
     ...restProps
 }) => {
+    const containerStyle = {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        background: `url(${backgroundImage}) no-repeat center center fixed`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed',
+        color: '#fff',
+        textAlign: 'center',
+        flexDirection: 'column',
+        ...style // Merge custom styles with default styles
+    };
+
     return (
-    <div
-     className={`${className}`}
-     style={styles}
-     {...restProps}
-    >
-        {children}
-    </div>
-    )
-}
+        <div
+            className={`${className}`}
+            style={containerStyle}
+            {...restProps}
+        >
+            {children}
+        </div>
+    );
+};
 
 Container.propTypes = {
     className: PropTypes.string,
     children: PropTypes.node,
-}
+    style: PropTypes.object, // Add PropType for style
+};
 
-export {Container}
+export { Container };

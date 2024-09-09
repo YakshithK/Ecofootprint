@@ -10,8 +10,6 @@ const Container = ({
 }) => {
     const containerStyle = {
         display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
         background: `url(${backgroundImage}) no-repeat center center fixed`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',

@@ -7,9 +7,10 @@ import '../Dashboard.css'
 import { Button } from "../components/button"
 import progress from '../assets/images/progress.gif'
 import chart from '../assets/images/chart.png'
+import { Title } from "../components/title"
 
 export const Dashboard = () => {
-    const title = {
+    const titleStyle = {
         fontSize: 150,
         fontWeight: 1,
         marginLeft: 30,
@@ -35,14 +36,14 @@ export const Dashboard = () => {
             ) : 
                 <>
                     <Container>
-                        <div style={{display: 'grid', gridTemplateRows: '50% 50%', gap: 150}}>
+                        <div style={{display: 'grid', gridTemplateRows: '50% 50%', gap: 100, margin: 10}}>
                             
                             {/* Top Section */}
                             <div className="top-section" style={{gridRow: '1/2', display: 'grid', gridTemplateColumns: '1fr 1fr 1fr'}}>
                                 
                                 {/* Column 1: Welcome Message */}
                                 <div style={{display: 'block', gridColumn: '1/2'}}>     
-                                    <h1 className="welcome" style={title}>Welcome Back User!</h1>
+                                    <Title className="welcome" style={titleStyle}>Welcome Back User!</Title>
                                     <p style={{fontFamily: 'Karantina', fontSize: 70, marginRight: 50}}>Monday, September 7th, 2024</p>
                                 </div>
 

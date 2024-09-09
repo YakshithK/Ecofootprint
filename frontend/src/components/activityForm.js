@@ -2,8 +2,14 @@ import React, { useState } from "react";
 import axios from 'axios';
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../config/firebase";
+import { Button } from "./button";
 
 export function Activity() {
+
+  const styles = {
+    div: {paddingBottom: 10, fontSize: 40},
+    input: {fontSize: 50, borderRadius: 20, textAlign: 'center', border: '4px solid #312A21', backgroundColor: 'rgba(144, 138, 39, 0.5)'}
+  }
   
   const [user] = useAuthState(auth)
 
@@ -14,7 +20,7 @@ export function Activity() {
     waste: { name: '', amount: 0 }
   });
 
-  const [footprint, setFootprint] = useState(0); // Add state for footprint
+  const [footprint, setFootprint] = useState(0); 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -45,76 +51,82 @@ export function Activity() {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Mode of Transportation</label>
-          <select name="transport.name" onChange={handleChange}>
+    <div style={{fontFamily: 'Viga'}}>
+      <form onSubmit={handleSubmit} style={{marginTop: 30}}>
+        <div style={styles.div}>
+          <label>Mode of Transportation: </label>
+          <select name="transport.name" onChange={handleChange} style={styles.input}>
             <option value=''>Select a Mode</option>
             <option value='car'>Car</option>
             <option value='bus'>Bus</option>
             <option value='bike'>Bike</option>
           </select>
         </div>
-        <div>
-          <label>Distance (km):</label>
+        <div style={styles.div}>
+          <label>Distance (km): </label>
           <input
             type='number'
             name="transport.amount"
             onChange={handleChange}
+            style={styles.input}
           />
         </div>
-        <div>
-          <label>Energy Type</label>
-          <select name="energy.name" onChange={handleChange}>
+        <div style={styles.div}>
+          <label>Energy Type: </label>
+          <select name="energy.name" onChange={handleChange} style={styles.input}>
             <option value=''>Select a Type</option>
             <option value='electricity'>Electricity</option>
             <option value='natural gas'>Natural Gas</option>
           </select>
         </div>
-        <div>
-          <label>Amount (kWh):</label>
+        <div style={styles.div}>
+          <label>Amount (kWh): </label>
           <input
             type='number'
             name="energy.amount"
             onChange={handleChange}
+            style={styles.input}
           />
         </div>
-        <div>
-          <label>Food</label>
-          <select name="food.name" onChange={handleChange}>
+        <div style={styles.div}>
+          <label>Food: </label>
+          <select name="food.name" onChange={handleChange} style={styles.input}>
             <option value=''>Select a Type</option>
             <option value='meat'>Meat</option>
             <option value='vegetables'>Vegetables</option>
           </select>
         </div>
-        <div>
-          <label>Food Amount:</label>
+        <div style={styles.div}>
+          <label>Food Amount: </label>
           <input
             type='number'
             name="food.amount"
             onChange={handleChange}
+            style={styles.input}
           />
         </div>
-        <div>
-          <label>Waste Type</label>
-          <select name="waste.name" onChange={handleChange}>
+        <div style={styles.div}>
+          <label>Waste Type: </label>
+          <select name="waste.name" onChange={handleChange} style={styles.input}>
             <option value=''>Select a Type</option>
             <option value='plastic'>Plastic</option>
             <option value='paper'>Paper</option>
           </select>
         </div>
-        <div>
-          <label>Waste Amount:</label>
+        <div style={styles.div}>
+          <label>Waste Amount: </label>
           <input
             type='number'
             name="waste.amount"
             onChange={handleChange}
+            style={styles.input}
           />
         </div>
-        <button type="submit">Submit</button>
+        <Button type="submit" style={{width: 500}}>Submit</Button>
       </form>
-      <p>Your Carbon Footprint: {footprint}</p> {/* Display the footprint */}
+      {footprint !== 0 && (
+      <p style={{fontSize: 75}}>Your Carbon Footprint is {footprint}</p>
+      )}    
     </div>
   );
 }

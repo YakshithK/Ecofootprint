@@ -2,10 +2,20 @@ import { auth } from "../config/firebase"
 import { signOut } from "firebase/auth"
 import { useAuthState } from "react-firebase-hooks/auth"
 import { Activity } from "../components/activityForm"
+import { Container } from "../components/container"
+import { Title } from "../components/title"
 
 export const Calculator = () => {
     const [user] = useAuthState(auth)
 
+    const containerStyle = {
+        height: 'auto'
+    }
+    
+    const titleStyle = {
+        fontSize: 150,
+        marginTop: 70
+    }
 
     return(
         <div>
@@ -18,12 +28,12 @@ export const Calculator = () => {
                 </>
             ) : 
                 <>
-                    <div>
-                        <h1>Welcome to your calculator</h1>
-                    </div>
-                    <div>
-                        <Activity />
-                    </div>
+                    <Container style={containerStyle}>
+                        <div style={{marginBottom: 50}}>
+                            <Title className="welcome" style={titleStyle}>Calculator</Title>
+                            <Activity />
+                        </div>
+                    </Container>
                 </>
         }
         </div>

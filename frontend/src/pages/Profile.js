@@ -4,6 +4,9 @@ import { auth } from "../config/firebase"
 import { signOut } from "firebase/auth"
 import axios from "axios"
 import { useState, useEffect } from "react"
+import { Container } from "../components/container"
+import { Title } from "../components/title"
+import { Button } from "../components/button"
 
 // Async function to fetch footprint from the API
 const getFootprint = async (id) => {
@@ -18,23 +21,23 @@ const getFootprint = async (id) => {
 }
 
 export const Profile = () => {
-    const [user] = useAuthState(auth)
-    const [footprint, setFootprint] = useState(0)
+    const [user] = useAuthState(auth);
+    const [footprint, setFootprint] = useState(0);
 
     useEffect(() => {
         if (user) {
             const fetchFootprint = async () => {
-                const userFootprint = await getFootprint(user.uid)
-                setFootprint(userFootprint)
-            }
+                const userFootprint = await getFootprint(user.uid);
+                setFootprint(userFootprint);
+            };
 
-            fetchFootprint()
+            fetchFootprint();
         }
-    }, [user])
+    }, [user]);
 
     const signUserOut = async () => {
-        await signOut(auth)
-    }
+        await signOut(auth);
+    };
 
     return (
         <div>
@@ -47,23 +50,103 @@ export const Profile = () => {
                 </>
             ) : (
                 <>
-                    <div style={{ margin: 50 }}>
-                        <div style={{ display: 'grid', gridTemplateColumns: '25% 75%' }}>
-                            <div>
-                                <img src={user?.photoURL || ''} width='200' height='200' style={{ borderRadius: 100 }} />
-                                <h1>{user?.displayName}</h1>
-                                <button onClick={signUserOut} style={{ fontSize: 25 }}>Sign Out</button>
+                    <Container style={{ height: '100vh' }}>
+                        <div style={{ display: 'grid', gridTemplateColumns: '34% 66%', margin: 30}}>
+                            {/* Left Section (Profile Picture, Sign Out) */}
+                            <div style={{ gridColumn: '1/2' }}>
+                                <Title className='welcome' style={{ fontSize: 100 }}>Profile</Title>
+                                <img 
+                                    src={user?.photoURL || ''} 
+                                    width='200' 
+                                    height='200' 
+                                    style={{ borderRadius: '50%', marginBottom: 20 }} 
+                                />
+                                <br></br>
+                                <Button 
+                                    onClick={signUserOut} 
+                                >
+                                    Sign Out
+                                </Button>
                             </div>
-                            <div>
-                                <p><strong>Name: </strong>{user?.displayName}</p>
-                                <p><strong>Email: </strong>{user?.email}</p>
-                                <p><strong>User ID: </strong>{user?.uid}</p>
-                                <p><strong>Latest Footprint: </strong>{footprint}</p>
+
+                            {/* Right Section (Profile Info) */}
+                            <div style={{ gridColumn: '2/2', display: 'grid', gridTemplateRows: 'repeat(4, auto)', gap: '10px' }}>
+                                <Button 
+                                    style={{ 
+                                        fontSize: 50,
+                                        width: '90%', 
+                                        height: 'auto',    // Height will grow as text wraps
+                                        textAlign: 'left',
+                                        paddingLeft: '15px',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'flex-start',
+                                        whiteSpace: 'normal',  // Allows text to wrap
+                                        overflow: 'hidden',    // In case you want to limit overflow
+                                        textOverflow: 'ellipsis'
+                                    }}
+                                >
+                                    Name: {user?.displayName}
+                                </Button>
+
+                                <Button 
+                                    style={{ 
+                                        fontSize: 50,
+                                        width: '90%', 
+                                        height: 'auto',    // Height will grow as text wraps
+                                        textAlign: 'left',
+                                        paddingLeft: '15px',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'flex-start',
+                                        whiteSpace: 'normal',  // Allows text to wrap
+                                        overflow: 'hidden',    // In case you want to limit overflow
+                                        textOverflow: 'ellipsis'
+                                    }}
+                                >
+                                    Email: {user?.email}
+                                </Button>
+
+                                <Button 
+                                    style={{ 
+                                        fontSize: 50,
+                                        width: '90%', 
+                                        height: 'auto',    // Height will grow as text wraps
+                                        textAlign: 'left',
+                                        paddingLeft: '15px',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'flex-start',
+                                        whiteSpace: 'normal',  // Allows text to wrap
+                                        overflow: 'hidden',    // In case you want to limit overflow
+                                        textOverflow: 'ellipsis'
+                                    }}
+                                >
+                                                                    User ID: {user?.uid}
+                                                                </Button>
+
+                                <Button 
+                                    style={{ 
+                                        fontSize: 50,
+                                        width: '90%', 
+                                        height: 'auto',    // Height will grow as text wraps
+                                        textAlign: 'left',
+                                        paddingLeft: '15px',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'flex-start',
+                                        whiteSpace: 'normal',  // Allows text to wrap
+                                        overflow: 'hidden',    // In case you want to limit overflow
+                                        textOverflow: 'ellipsis'
+                                    }}
+                                >
+                                    Latest Footprint: {footprint}
+                                </Button>
                             </div>
                         </div>
-                    </div>
+                    </Container>
                 </>
             )}
         </div>
-    )
-}
+    );
+};

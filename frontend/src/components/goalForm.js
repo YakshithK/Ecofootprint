@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios'
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../config/firebase';
-import axios from 'axios';
 
-export const ActivityForm = () => {
+export const GoalForm = () => {
 
   const [user] = useAuthState(auth);
 
+
   const [formData, setFormData] = useState({
     user_id: user?.uid,
-    activity_type: '',
-    description: '',
+    goal_name: '',
+    goal_description: '',
     amount: '',
-    date: ''
+    start_date: '',
+    end_date: ''
   })
 
   const handleChange = (e) => {
@@ -24,9 +26,10 @@ export const ActivityForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    console.log(formData);
     
     try {
-      const response = await axios.post('http://localhost:8000/api/activities/', formData);
+      const response = await axios.post('http://localhost:8000/api/goals/', formData);
       console.log(response)
     } catch (error) {
       console.log('There was an error submitting the data!', error);
@@ -47,20 +50,24 @@ export const ActivityForm = () => {
   return (
         <form style={{display: 'flex', flexDirection: 'column'}} onSubmit={handleSubmit}>
           <label style={{marginBottom: 10, color: '#312A21'}}>
-            Activity Type:
-            <input type="text" name="activity_type" style={{padding: 8, marginTop: 4, borderRadius: 4, border: '1px solid #ddd'}} value={formData.activity_type} onChange={handleChange}/>
+            Goal Name:
+            <input type="text" name="goal_name" style={{padding: 8, marginTop: 4, borderRadius: 4, border: '1px solid #ddd'}} value={formData.goal_name} onChange={handleChange}/>
           </label>
           <label style={{marginBottom: 10, color: '#312A21'}}>
-            Activity Description:
-            <input type="text" name="description" style={{padding: 8, marginTop: 4, borderRadius: 4, border: '1px solid #ddd'}} value={formData.description} onChange={handleChange}/>
+            Goal Description:
+            <input type="text" name="goal_description" style={{padding: 8, marginTop: 4, borderRadius: 4, border: '1px solid #ddd'}} value={formData.goal_description} onChange={handleChange}/>
           </label>
           <label style={{marginBottom: 10, color: '#312A21'}}>
             Amount:
             <input type="number" name="amount" style={{padding: 8, marginTop: 4, borderRadius: 4, border: '1px solid #ddd'}} value={formData.amount} onChange={handleChange}/>
           </label>
           <label style={{marginBottom: 10, color: '#312A21'}}>
-            Date:
-            <input type="text" name="date" style={{padding: 8, marginTop: 4, borderRadius: 4, border: '1px solid #ddd'}} value={formData.date} onChange={handleChange}/>
+            Start Date:
+            <input type="text" name="start_date" style={{padding: 8, marginTop: 4, borderRadius: 4, border: '1px solid #ddd'}} value={formData.start_date} onChange={handleChange}/>
+          </label>
+          <label style={{marginBottom: 10, color: '#312A21'}}>
+            End Date:
+            <input type="text" name="end_date" style={{padding: 8, marginTop: 4, borderRadius: 4, border: '1px solid #ddd'}} value={formData.end_date} onChange={handleChange}/>
           </label>
           <button type="submit" style={buttonStyle}>Submit</button>
         </form>

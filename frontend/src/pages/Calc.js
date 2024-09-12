@@ -1,7 +1,7 @@
 import { auth } from "../config/firebase"
 import { signOut } from "firebase/auth"
 import { useAuthState } from "react-firebase-hooks/auth"
-import { Activity } from "../components/activityForm"
+import { Activity } from "../components/calculatorForm"
 import { Container } from "../components/container"
 import { Title } from "../components/title"
 

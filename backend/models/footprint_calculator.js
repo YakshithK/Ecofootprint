@@ -14,7 +14,20 @@ export function calculate(inputs) {
     const food = inputs.food.amount * factors.food[foodMode]
     const wasteMood = inputs.waste.name
     const waste = inputs.waste.amount * factors.waste[wasteMood]
-    return transport + energy + food + waste
+
+    const response = {
+        footprint: {
+        footprint: transport + energy + food + waste,
+        },
+        data: {
+        transport: transport,
+        energy: energy,
+        food: food,
+        waste: waste
+        }
+    }
+
+    return response
 
 }
 

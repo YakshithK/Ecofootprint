@@ -7,7 +7,6 @@ import { Profile } from './pages/Profile.js';
 import { Calculator } from './pages/Calc.js';
 import { Header } from './components/header.js';
 
-
 function App() {
   return (
     <Router>

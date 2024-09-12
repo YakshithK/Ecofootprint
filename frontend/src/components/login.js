@@ -2,8 +2,22 @@ import {auth, provider} from '../config/firebase'
 import { signInWithPopup } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { Button } from './button'
  
 export const Login = () => {
+
+    const buttonStyle = {
+        WebkitTextStrokeColor: '#312A21',
+        fontFamily: 'Viga',
+        marginBottom: 160,
+        padding: '10px 35px',
+        fontWeight: '10px',
+        fontSize: 35,
+        color: '#fff',
+        backgroundColor: '#908A27',
+        cursor: 'pointer',
+        textDecoration: 'none'
+  }
 
     const navigate = useNavigate()
 
@@ -41,7 +55,7 @@ export const Login = () => {
 
     return (
         <div>
-            <button style={{ fontSize: 25 }}onClick={signInWithGoogle}>Sign In With Google</button>
+            <Button style={buttonStyle}onClick={signInWithGoogle}>Sign In With Google</Button>
         </div>
     )
 }

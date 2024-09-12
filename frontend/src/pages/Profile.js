@@ -7,6 +7,8 @@ import { useState, useEffect } from "react"
 import { Container } from "../components/container"
 import { Title } from "../components/title"
 import { Button } from "../components/button"
+import React from 'react';
+
 
 // Async function to fetch footprint from the API
 const getFootprint = async (id) => {
@@ -39,14 +41,39 @@ export const Profile = () => {
         await signOut(auth);
     };
 
+    const containerStyle = {
+        justifyContent: 'center',
+        height: '100vh', 
+      }
+    
+      const titleStyle = {
+        fontSize: 150,
+        marginBottom: 50
+      }
+    
+      const buttonStyle = {
+          WebkitTextStrokeColor: '#312A21',
+          fontFamily: 'Viga',
+          marginBottom: 160,
+          padding: '10px 35px',
+          fontWeight: '10px',
+          fontSize: 35,
+          color: '#fff',
+          backgroundColor: '#908A27',
+          cursor: 'pointer',
+          textDecoration: 'none'
+    }
+
     return (
         <div>
             {!user ? (
                 <>
+                    <Container style={containerStyle}>
+                    <Title className="welcome" style={titleStyle}>You are not signed in, click the button below to sign in with Google</Title>
                     <div>
-                        <h1>You are not signed in, click the button below to sign in with Google</h1>
                         <Login />
                     </div>
+                    </Container>
                 </>
             ) : (
                 <>

@@ -22,9 +22,9 @@ export const Calculator = () => {
         {
             !user ? (
                 <>
-                    <div>
-                        <h1>You are not signed in, you need to be signed in to view the calculator</h1>
-                    </div>
+                    <Container style={{height:'100vh', justifyContent: 'center'}}>
+                        <Title className="welcome" style={{fontSize: 120, marginTop: 50}}>You are not signed in, you need to be signed in to use the calculator</Title>
+                    </Container>
                 </>
             ) : 
                 <>

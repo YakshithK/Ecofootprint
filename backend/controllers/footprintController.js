@@ -21,6 +21,9 @@ export const updateFootprint = async (req, res, next) => {
     const {food} = req.body
     const {waste} = req.body
     try {
+        const result1 = await pool.query(
+            'UPDATE users SET second_latest_footprint = latest_footprint WHERE uid = $1', [uid]
+        )
         const result = await pool.query(
             'UPDATE users SET latest_footprint = $1, latest_transport = $2, latest_energy = $3, latest_food = $4, latest_waste = $5 WHERE uid = $6', [footprint, transport, energy, food, waste, uid]
         )
@@ -47,6 +50,18 @@ export const getFootprintData = async (req, res, next) => {
     try {
         const result = await pool.query(
             'SELECT latest_transport, latest_energy, latest_food, latest_waste FROM users WHERE uid = $1', [uid]
+        )
+        res.status(201).json(result.rows[0])
+    } catch (err) {
+        next(err)
+    }
+}
+
+export const getProgress = async (req, res, next) => {
+    const uid = req.params.uid
+    try {
+        const result = await pool.query(
+            'SELECT latest_footprint, second_latest_footprint FROM users WHERE uid = $1', [uid]
         )
         res.status(201).json(result.rows[0])
     } catch (err) {

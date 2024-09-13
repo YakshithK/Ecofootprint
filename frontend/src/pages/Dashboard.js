@@ -52,7 +52,7 @@ const getData = async (id) => {
     }
 }
 
-const getProgress = async (uid) => {
+const getGoalProgress = async (uid) => {
     let goal_ids = [];
     const goals = [];
   
@@ -90,6 +90,34 @@ const getProgress = async (uid) => {
       return [];
     }
   };
+
+  const getFootprintProgress = async (uid) => {
+    try {
+      const response = await axios.get(`http://localhost:8000/api/footprint/progress/${uid}`);
+      
+      const data = response.data;
+      const latestFootprint = parseFloat(data.latest_footprint);
+      const secondLatestFootprint = parseFloat(data.second_latest_footprint);
+  
+      // Calculate percentage change
+      const percentageChange = ((latestFootprint - secondLatestFootprint) / secondLatestFootprint) * 100;
+  
+      console.log(`Latest footprint: ${latestFootprint}`);
+      console.log(`Second latest footprint: ${secondLatestFootprint}`);
+      console.log(`Percentage change: ${percentageChange.toFixed(2)}%`);
+  
+      // Return the percentage change as part of the data
+      return {
+        latestFootprint,
+        secondLatestFootprint,
+        percentageChange: percentageChange.toFixed(0), // round to 2 decimal places
+      }
+    } catch (error) {
+      console.error('Error fetching footprint:', error);
+      return null; // return null or handle it as per your needs
+    }
+  };
+  
   
   // Function to assign random colors to goals (you can customize it)
   const getRandomColor = () => {
@@ -100,20 +128,44 @@ const getProgress = async (uid) => {
 
 export const Dashboard = () => {
 
-    const [user] = useAuthState(auth);
-
+    const [user] = useAuthState(auth)
     const [goals, setGoals] = useState([]);
+    const [footprintData, setFootprintData] = useState(null);
+
+    getFootprintProgress(user?.uid)
 
     useEffect(() => {
       if (user) {
         const fetchGoals = async () => {
-          const fetchedGoals = await getProgress(user.uid);
+          const fetchedGoals = await getGoalProgress(user.uid);
           setGoals(fetchedGoals);  // Update goals state with fetched data
         };
   
         fetchGoals();
       }
     }, [user]);
+
+    useEffect(() => {
+        if (user) {
+            const fetchFootprintProgress = async () => {
+                const data = await getFootprintProgress(user.uid);
+                setFootprintData(data);
+            };
+
+            fetchFootprintProgress();
+        }
+    }, [user]);
+
+    const getFootprintMessage = () => {
+        if (footprintData) {
+            const { latestFootprint, percentageChange } = footprintData;
+            const changeDirection = percentageChange >= 0 ? 'greater' : 'lower';
+            const changeValue = Math.abs(percentageChange); // to remove negative sign from the displayed value
+
+            return `Your last footprint was ${latestFootprint.toFixed(2)}, ${changeValue}% ${changeDirection} than the one before.`;
+        }
+        return 'Loading footprint data...';
+    };
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -198,21 +250,21 @@ export const Dashboard = () => {
             ) : 
                 <>
                     <Container>
-                        <div style={{display: 'grid', gridTemplateRows: '50% 50%', gap: 100, margin: 10}}>
+                        <div style={{display: 'grid', gap: 100, margin: 10}}>
                             
                             {/* Top Section */}
                             <div className="top-section" style={{gridRow: '1/2', display: 'grid', gridTemplateColumns: '1fr 1fr 1fr'}}>
                                 
                                 {/* Column 1: Welcome Message */}
                                 <div style={{display: 'block', gridColumn: '1/2'}}>     
-                                    <Title className="welcome" style={titleStyle}>Welcome Back User!</Title>
+                                    <Title className="welcome" style={titleStyle}>Welcome Back {user?.displayName.split(' ')[0]}!</Title>
                                     <p style={{fontFamily: 'Karantina', fontSize: 70, marginRight: 50}}>{getFormattedDate()}</p>
                                 </div>
 
                                 {/* Column 2: Latest Footprint */}
                                 <div style={{gridColumn: '2/3', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                                     <p style={{fontFamily: 'Karantina', fontSize: 70, textAlign: 'left'}}>
-                                        Your last footprint was X, Y% greater/lower than the one before.
+                                        {getFootprintMessage()}
                                     </p>
                                 </div>
 
